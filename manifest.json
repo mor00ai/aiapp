@@ -1,10 +1,11 @@
 {
-  "name": "AI Directory App",
-  "short_name": "AI Directory",
-  "start_url": "./index.html",
+  "name": "AI App",
+  "short_name": "AI App",
+  "description": "Un'app per interagire con diverse intelligenze artificiali.",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#121212",
-  "theme_color": "#1e1e1e",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "icon.png",
