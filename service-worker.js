@@ -1,39 +1,26 @@
-const CACHE_NAME = "ai-directory-cache-v2";
-const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./icon.png"
-];
-
-self.addEventListener("install", (event) => {
+self.addEventListener('install', function (event) {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(FILES_TO_CACHE);
+    caches.open('ai-app').then(function (cache) {
+      return cache.addAll([
+        './',
+        './index.html',
+        './manifest.json',
+        './icon.png'
+      ]);
     })
   );
-  self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keyList) =>
-      Promise.all(
-        keyList.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
-      )
-    )
-  );
-  self.clients.claim();
-});
-
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', function (event) {
   event.respondWith(
-    caches.match(event.request).then((response) => {
+    caches.match(event.request).then(function (response) {
       return response || fetch(event.request);
     })
   );
+});
+
+self.addEventListener('message', function (event) {
+  if (event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
