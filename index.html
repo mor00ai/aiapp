@@ -3,157 +3,131 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIApp - Raccolta di Intelligenze Artificiali</title>
+  <title>AI Directory - PWA</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#121212">
+  <link rel="icon" href="icon.png">
+  <meta name="theme-color" content="#1e1e1e">
   <style>
     body {
-      background-color: var(--bg-color, #121212);
-      color: white;
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 1rem;
+      background-color: #1e1e1e;
+      color: #fff;
     }
-    h1, h2 {
+    header {
+      padding: 1em;
+      background: #333;
       text-align: center;
     }
     .category {
-      margin-top: 2rem;
+      padding: 1em;
+    }
+    h2 {
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.5em;
     }
     ul {
       list-style: none;
       padding: 0;
     }
     li {
-      margin: 0.5rem 0;
+      margin: 0.5em 0;
+    }
+    a {
+      color: #4fc3f7;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
     button {
-      padding: 0.5rem 1rem;
-      margin: 1rem 0.5rem;
+      margin: 1em;
+      padding: 0.5em 1em;
+      background: #4fc3f7;
+      border: none;
+      color: #000;
+      font-weight: bold;
       cursor: pointer;
-    }
-    input, select {
-      padding: 0.5rem;
-      margin: 0.5rem;
     }
   </style>
 </head>
 <body>
-  <h1>AIApp - Raccolta di Intelligenze Artificiali</h1>
+  <header>
+    <h1>Elenco Intelligenze Artificiali</h1>
+    <button onclick="changeTheme()">Cambia Sfondo</button>
+    <button onclick="exportList('txt')">Esporta TXT</button>
+    <button onclick="exportList('html')">Esporta HTML</button>
+  </header>
 
-  <button onclick="changeBgColor()">Cambia colore sfondo</button>
-  <button onclick="exportList('txt')">Esporta in TXT</button>
-  <button onclick="exportList('html')">Esporta in HTML</button>
-
-  <h2>Aggiungi nuova AI</h2>
-  <input type="text" id="aiName" placeholder="Nome AI">
-  <input type="url" id="aiLink" placeholder="Link AI">
-  <select id="aiCategory">
-    <option value="Conversazione">Conversazione</option>
-    <option value="Video">Video</option>
-    <option value="Musica">Musica</option>
-    <option value="Immagini">Immagini</option>
-    <option value="Codice">Codice</option>
-  </select>
-  <button onclick="addAI()">Aggiungi AI</button>
-
-  <div class="category" id="Conversazione">
-    <h2>Conversazione</h2>
-    <ul></ul>
-  </div>
-  <div class="category" id="Video">
-    <h2>Video</h2>
-    <ul></ul>
-  </div>
-  <div class="category" id="Musica">
-    <h2>Musica</h2>
-    <ul></ul>
-  </div>
-  <div class="category" id="Immagini">
-    <h2>Immagini</h2>
-    <ul></ul>
-  </div>
-  <div class="category" id="Codice">
-    <h2>Codice</h2>
-    <ul></ul>
-  </div>
+  <main id="content">
+    <div class="category">
+      <h2>AI Conversazionali / Chatbot</h2>
+      <ul>
+        <li><a href="https://chat.openai.com/" target="_blank">ChatGPT</a></li>
+        <li><a href="https://www.pizzagpt.it/" target="_blank">PizzaGPT</a></li>
+        <li><a href="https://claude.ai/chat/2a37d49b-4cc6-4a22-9704-0296120423e1" target="_blank">Claude</a></li>
+        <li><a href="https://docs.anthropic.com/claude/docs/intro-to-prompting" target="_blank">Claude - Documentazione</a></li>
+        <li><a href="https://www.perplexity.ai/" target="_blank">Perplexity AI</a></li>
+        <li><a href="https://poe.com/chat/yfy74anlpt5cmidps" target="_blank">Poe</a></li>
+        <li><a href="https://app.chathub.gg/" target="_blank">ChatHub</a></li>
+        <li><a href="https://chat.notdiamond.ai/" target="_blank">NotDiamond Chat</a></li>
+        <li><a href="https://chat.mistral.ai/chat" target="_blank">Mistral Chat</a></li>
+        <li><a href="https://chat.deepseek.com/" target="_blank">DeepSeek Chat</a></li>
+        <li><a href="https://aistudio.google.com/prompts/new_chat" target="_blank">Google AI Studio</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <h2>Assistenti virtuali</h2>
+      <ul>
+        <li><a href="https://monica.im/home" target="_blank">Monica AI</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <h2>Progetti AI su Replit</h2>
+      <ul>
+        <li><a href="https://replit.com/@3c1023d78e/WorkshopTracker" target="_blank">Workshop Tracker</a></li>
+        <li><a href="https://replit.com/@3c1023d78e/TodoTaskManager" target="_blank">Todo Task Manager</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <h2>Risorse Tecniche</h2>
+      <ul>
+        <li><a href="https://www.bing.com/search?q=github%2Fmustardchef%2Fwsabuilds" target="_blank">GitHub WSABuilds</a></li>
+      </ul>
+    </div>
+  </main>
 
   <script>
-    const aiData = {
-      "Conversazione": [
-        { name: "ChatGPT", url: "https://chat.openai.com/" },
-        { name: "YouChat", url: "https://you.com/chat" },
-        { name: "Perplexity AI", url: "https://www.perplexity.ai/" }
-      ],
-      "Video": [
-        { name: "Runway ML", url: "https://runwayml.com/" },
-        { name: "Synthesia", url: "https://www.synthesia.io/" }
-      ],
-      "Musica": [
-        { name: "Soundraw", url: "https://soundraw.io/" },
-        { name: "Aiva", url: "https://www.aiva.ai/" }
-      ],
-      "Immagini": [
-        { name: "DALL·E", url: "https://openai.com/dall-e" },
-        { name: "Midjourney", url: "https://www.midjourney.com/" }
-      ],
-      "Codice": [
-        { name: "GitHub Copilot", url: "https://github.com/features/copilot" },
-        { name: "Codeium", url: "https://www.codeium.com/" }
-      ]
-    };
-
-    function renderList() {
-      Object.keys(aiData).forEach(category => {
-        const ul = document.querySelector(`#${category} ul`);
-        ul.innerHTML = "";
-        aiData[category].forEach(ai => {
-          const li = document.createElement("li");
-          li.innerHTML = `<a href="${ai.url}" target="_blank">${ai.name}</a>`;
-          ul.appendChild(li);
-        });
-      });
-    }
-
-    function addAI() {
-      const name = document.getElementById("aiName").value;
-      const link = document.getElementById("aiLink").value;
-      const category = document.getElementById("aiCategory").value;
-      if (name && link && category) {
-        aiData[category].push({ name, url: link });
-        renderList();
-        document.getElementById("aiName").value = "";
-        document.getElementById("aiLink").value = "";
-      }
-    }
-
-    function changeBgColor() {
-      const color = prompt("Inserisci un colore esadecimale (es. #ffffff):", "#ffffff");
-      if (color) document.body.style.setProperty("--bg-color", color);
+    let dark = true;
+    function changeTheme() {
+      document.body.style.backgroundColor = dark ? '#fff' : '#1e1e1e';
+      document.body.style.color = dark ? '#000' : '#fff';
+      dark = !dark;
     }
 
     function exportList(type) {
-      let content = "";
-      Object.entries(aiData).forEach(([cat, tools]) => {
-        content += `\n${cat}:\n`;
-        tools.forEach(ai => {
-          content += `- ${ai.name}: ${ai.url}\n`;
-        });
-      });
-
+      let content = document.querySelector('#content').innerHTML;
       let blob;
-      if (type === 'html') {
-        blob = new Blob([`<pre>${content}</pre>`], { type: 'text/html' });
+      if (type === 'txt') {
+        let text = document.querySelectorAll('a');
+        let out = '';
+        text.forEach(el => {
+          out += `${el.innerText}: ${el.href}\n`;
+        });
+        blob = new Blob([out], { type: 'text/plain' });
       } else {
-        blob = new Blob([content], { type: 'text/plain' });
+        blob = new Blob([`<html><body>${content}</body></html>`], { type: 'text/html' });
       }
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `ai_list.${type}`;
-      a.click();
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `ai-list.${type}`;
+      link.click();
     }
 
-    renderList();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
   </script>
 </body>
 </html>
+
