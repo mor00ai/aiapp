@@ -2,88 +2,142 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>AI App</title>
-  <link rel="manifest" href="manifest.json">
-  <script src="service-worker.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>AI App - Catalogo AI</title>
+    <link rel="icon" href="icon.png">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Ripristinato lo sfondo chiaro */
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #000;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .category {
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .category h2 {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .ai-link {
+            display: block;
+            text-align: center;
+            margin: 5px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+        }
+
+        .ai-link:hover {
+            text-decoration: underline;
+        }
+
+        .update-btn {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-  <h1>Benvenuto nell'AI App</h1>
-  <div>
-    <h2>Generazione Immagini AI</h2>
-    <ul>
-      <li><a href="https://www.flexclip.com/tools/ai-image-generator/" target="_blank">FlexClip AI Image Generator</a></li>
-      <li><a href="https://www.leonardo.ai/" target="_blank">Leonardo AI (Genera influencer e altro)</a></li>
-      <li><a href="https://www.krea.ai/home" target="_blank">Krea AI</a></li>
-      <li><a href="https://www.piclumen.com/" target="_blank">Piclumen AI</a></li>
-      <li><a href="https://app.pixverse.ai/create" target="_blank">Pixverse AI</a></li>
-      <li><a href="https://www.imagine.art/dashboard" target="_blank">Imagine AI</a></li>
-    </ul>
 
-    <h2>AI per Creazione di Profili e Video</h2>
-    <ul>
-      <li><a href="https://www.stylar.ai/profile" target="_blank">Stylar AI Profile</a></li>
-      <li><a href="https://www.stylar.ai/canvas?id=11397164" target="_blank">Stylar AI Canvas</a></li>
-      <li><a href="https://hailuoai.video/" target="_blank">Hailuo AI Video</a></li>
-    </ul>
+<h1>Catalogo delle Intelligenze Artificiali</h1>
 
-    <h2>AI per Generazione Testi e Progetti</h2>
-    <ul>
-      <li><a href="https://www.basedlabs.ai/" target="_blank">Based Labs AI</a></li>
-      <li><a href="https://www.recraft.ai/projects" target="_blank">Recraft AI Projects</a></li>
-      <li><a href="https://dream-machine.lumalabs.ai/board/new" target="_blank">Dream Machine AI</a></li>
-    </ul>
+<div class="container">
+    <!-- Categoria Conversazione -->
+    <div class="category">
+        <h2>Conversazione</h2>
+        <a href="https://chat.openai.com/" class="ai-link" target="_blank">ChatGPT</a>
+        <a href="https://www.pizzagpt.it/" class="ai-link" target="_blank">PizzaGPT</a>
+        <a href="https://www.bing.com/search?pglt=675&q=github%2Fmustardchef%2Fwsabuilds&cvid=71493033277f4656bdfe84c586fe4de2&gs_lcrp=EgZjaHJvbWUqBggBEAAYQDIGCAAQRRg5MgYIARAAGEAyBggCEAAYQDIGCAMQABhAMgYIBBAAGEAyBggFEAAYQDIGCAYQABhAMgYIBxBFGDoyBggIEEUYQdIBCTUxMDU5ajBqMagCALACAA&FORM=ANNTA1&PC=U531" class="ai-link" target="_blank">Bing AI</a>
+        <a href="https://docs.anthropic.com/claude/docs/intro-to-prompting" class="ai-link" target="_blank">Claude</a>
+        <a href="https://claude.ai/chat/2a37d49b-4cc6-4a22-9704-0296120423e1" class="ai-link" target="_blank">Claude Chat</a>
+        <a href="https://www.perplexity.ai/" class="ai-link" target="_blank">Perplexity AI</a>
+        <a href="https://poe.com/chat/yfy74anlpt5cmidps" class="ai-link" target="_blank">Poe</a>
+        <a href="https://chat.notdiamond.ai/" class="ai-link" target="_blank">NotDiamond</a>
+        <a href="https://chat.mistral.ai/chat" class="ai-link" target="_blank">Mistral</a>
+    </div>
 
-    <h2>AI per Siti Web e Marketing</h2>
-    <ul>
-      <li><a href="https://www.thepclegends.com/" target="_blank">PC Legends</a></li>
-      <li><a href="https://www.wan-ai.org/?utm_source=google_ad&utm_medium=cpc&utm_campaign=wan2.1&gad_source=1&gclid=Cj0KCQjwytS-BhCKARIsAMGJyzqRMouz1mrEnzNweo0vD_ytX03N33_8qMm8GnnH-FgEQ81nlL7y3oMaAnBMEALw_wcB" target="_blank">Wan AI (Ad)</a></li>
-      <li><a href="https://www.wan-ai.org/" target="_blank">Wan AI</a></li>
-    </ul>
+    <!-- Categoria Immagini -->
+    <div class="category">
+        <h2>Generazione Immagini</h2>
+        <a href="https://app.leonardo.ai/" class="ai-link" target="_blank">Leonardo AI</a>
+        <a href="https://www.flexclip.com/tools/ai-image-generator/" class="ai-link" target="_blank">FlexClip AI</a>
+        <a href="https://www.krea.ai/home" class="ai-link" target="_blank">Krea AI</a>
+        <a href="https://www.stylar.ai/profile" class="ai-link" target="_blank">Stylar AI</a>
+        <a href="https://www.stylar.ai/canvas?id=11397164" class="ai-link" target="_blank">Stylar Canvas</a>
+        <a href="https://www.thepclegends.com/" class="ai-link" target="_blank">ThePC Legends</a>
+        <a href="https://www.imagine.art/dashboard" class="ai-link" target="_blank">Imagine AI</a>
+        <a href="https://www.basedlabs.ai/" class="ai-link" target="_blank">Based Labs AI</a>
+        <a href="https://glif.app/glifs" class="ai-link" target="_blank">Glif AI</a>
+        <a href="https://flux1.org/" class="ai-link" target="_blank">Flux1 AI</a>
+    </div>
 
-    <h2>AI per Generazione Immagini e Personaggi</h2>
-    <ul>
-      <li><a href="https://app.artflow.ai/character-builder?feature=actors" target="_blank">Artflow AI Character Builder</a></li>
-      <li><a href="https://www.pocl.com" target="_blank">Pocl AI Image Generator</a></li>
-    </ul>
-  </div>
+    <!-- Categoria Altri -->
+    <div class="category">
+        <h2>Altro</h2>
+        <a href="https://replicate.com/ostris/flux-dev-lora-trainer/train" class="ai-link" target="_blank">Flux Dev AI</a>
+        <a href="https://www.piclumen.com/" class="ai-link" target="_blank">Piclumen AI</a>
+        <a href="https://app.artflow.ai/character-builder?feature=actors" class="ai-link" target="_blank">ArtFlow AI</a>
+        <a href="https://piclumen.com/app/image-generator/explore" class="ai-link" target="_blank">Piclumen Generator</a>
+        <a href="https://app.pixverse.ai/create" class="ai-link" target="_blank">Pixverse AI</a>
+        <a href="https://hailuoai.video/" class="ai-link" target="_blank">Hailuo AI</a>
+        <a href="https://www.recraft.ai/projects" class="ai-link" target="_blank">Recraft AI</a>
+        <a href="https://pollo.ai/" class="ai-link" target="_blank">Pollo AI</a>
+        <a href="https://www.wan-ai.org/?utm_source=google_ad&utm_medium=cpc&utm_campaign=wan2.1&gad_source=1&gclid=Cj0KCQjwytS-BhCKARIsAMGJyzqRMouz1mrEnzNweo0vD_ytX03N33_8qMm8GnnH-FgEQ81nlL7y3oMaAnBMEALw_wcB" class="ai-link" target="_blank">Wan AI</a>
+        <a href="https://www.wan-ai.org/" class="ai-link" target="_blank">Wan AI (Altro Link)</a>
+        <a href="https://dream-machine.lumalabs.ai/board/new" class="ai-link" target="_blank">Dream Machine AI</a>
+    </div>
+</div>
 
-  <!-- Bottone per forzare l'aggiornamento della cache -->
-  <button id="updateBtn" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; font-size: 14px; display: none;">
-    🔄 Aggiorna AI
-  </button>
+<!-- Pulsante Aggiornamento Cache -->
+<button class="update-btn" id="updateCacheBtn">Aggiorna Cache AI</button>
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      let refreshing = false;
-      navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-        registration.addEventListener('updatefound', function () {
-          const newWorker = registration.installing;
-          newWorker.addEventListener('statechange', function () {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              document.getElementById('updateBtn').style.display = 'block';
-            }
-          });
-        });
-      });
-
-      navigator.serviceWorker.addEventListener('controllerchange', function () {
-        if (!refreshing) {
-          window.location.reload();
-          refreshing = true;
+<script src="service-worker.js"></script>
+<script>
+    // Funzione per aggiornare la cache
+    document.getElementById('updateCacheBtn').addEventListener('click', function() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then(function(registration) {
+                registration.update();
+                alert('Cache aggiornata con successo!');
+            });
         }
-      });
+    });
+</script>
 
-      document.getElementById('updateBtn').addEventListener('click', function () {
-        navigator.serviceWorker.getRegistration().then(function (reg) {
-          if (reg && reg.waiting) {
-            reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-          }
-        });
-      });
-    }
-  </script>
 </body>
 </html>
