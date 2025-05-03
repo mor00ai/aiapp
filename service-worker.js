@@ -1,33 +1,50 @@
-const CACHE_NAME = "ai-catalogo-v2";
+
+const CACHE_NAME = 'ai-app-v1';
 const urlsToCache = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./icon.png"
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/service-worker.js',
+  '/styles.css',  // Aggiungi il tuo file CSS se necessario
+  '/icon.png',    // Icona
+  '/icon-512.png' // Icona ad alta risoluzione
 ];
 
-self.addEventListener("install", event => {
+// Installazione del service worker
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        console.log('Cache aperta e risorse aggiunte');
+        return cache.addAll(urlsToCache);
+      })
   );
 });
 
-self.addEventListener("activate", event => {
+// Attivazione del service worker
+self.addEventListener('activate', (event) => {
+  const cacheWhitelist = [CACHE_NAME];
+
   event.waitUntil(
-    caches.keys().then(keys => {
+    caches.keys().then((cacheNames) => {
       return Promise.all(
-        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+        cacheNames.map((cacheName) => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            console.log(`Cache obsoleta rimossa: ${cacheName}`);
+            return caches.delete(cacheName);
+          }
+        })
       );
     })
   );
 });
 
-self.addEventListener("fetch", event => {
+// Gestione delle richieste di rete
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+    caches.match(event.request)
+      .then((response) => {
+        return response || fetch(event.request);
+      })
   );
 });
