@@ -1,11 +1,11 @@
 {
-  "name": "AI App",
-  "short_name": "AIApp",
-  "description": "Un'app che raccoglie le migliori intelligenze artificiali",
-  "start_url": "/",
+  "name": "AI Tools Launcher",
+  "short_name": "AI Tools",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#333333",
+  "theme_color": "#000000",
+  "description": "Una raccolta di intelligenze artificiali divise per categoria.",
   "icons": [
     {
       "src": "icon.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
