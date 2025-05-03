@@ -1,233 +1,154 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI App</title>
-    <link rel="manifest" href="manifest.json">
-    <script src="service-worker.js" defer></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-        }
-        .ai-category {
-            margin: 20px 0;
-        }
-        .ai-category h2 {
-            margin-bottom: 10px;
-        }
-        .ai-list a {
-            display: block;
-            margin: 5px 0;
-            color: #007bff;
-            text-decoration: none;
-        }
-        .ai-list a:hover {
-            text-decoration: underline;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.png" />
+  <title>AI Tools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 1em;
+      background-color: white;
+      color: black;
+    }
+    h1 {
+      margin-bottom: 0.5em;
+    }
+    input[type="text"] {
+      padding: 0.5em;
+      font-size: 1em;
+      width: 100%;
+      margin-bottom: 1em;
+      box-sizing: border-box;
+    }
+    h2 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.3em;
+      margin-top: 1em;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 0.4em 0;
+    }
+    a {
+      color: blue;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .actions {
+      margin-top: 1em;
+    }
+    select, button {
+      padding: 0.5em;
+      font-size: 1em;
+    }
+  </style>
 </head>
 <body>
+  <h1>AI Tools Launcher</h1>
 
-    <h1>Elenco delle Intelligenze Artificiali</h1>
+  <input type="text" id="search" placeholder="🔍 Cerca intelligenza artificiale..." />
 
-    <!-- Conversazione -->
-    <div class="ai-category">
-        <h2>Conversazione</h2>
-        <div class="ai-list">
-            <a href="https://chat.openai.com/" target="_blank">ChatGPT</a>
-            <a href="https://www.pizzagpt.it/" target="_blank">PizzaGPT</a>
-            <a href="https://www.perplexity.ai/" target="_blank">Perplexity AI</a>
-            <a href="https://poe.com/chat/yfy74anlpt5cmidps" target="_blank">Poe AI</a>
-            <a href="https://chat.notdiamond.ai/" target="_blank">NotDiamond AI</a>
-            <a href="https://chat.mistral.ai/chat" target="_blank">Mistral Chat</a>
-            <a href="https://chat.deepseek.com/" target="_blank">DeepSeek AI</a>
-            <a href="https://monica.im/home" target="_blank">Monica AI</a>
-        </div>
-    </div>
+  <!-- Inizio categorie -->
+  <div id="ai-list">
+    <h2>🔵 Chat & Conversazione</h2>
+    <ul>
+      <li><a href="https://chat.openai.com/" target="_blank">ChatGPT</a></li>
+      <li><a href="https://www.pizzagpt.it/" target="_blank">PizzaGPT</a></li>
+      <li><a href="https://claude.ai/chat" target="_blank">Claude</a></li>
+      <li><a href="https://www.perplexity.ai/" target="_blank">Perplexity</a></li>
+      <li><a href="https://poe.com/" target="_blank">Poe</a></li>
+      <li><a href="https://chat.notdiamond.ai/" target="_blank">NotDiamond AI</a></li>
+      <li><a href="https://chat.mistral.ai/chat" target="_blank">Mistral Chat</a></li>
+      <li><a href="https://chat.deepseek.com/" target="_blank">DeepSeek</a></li>
+      <li><a href="https://aistudio.google.com/prompts/new_chat" target="_blank">Google AI Studio</a></li>
+      <li><a href="https://chathub.gg/" target="_blank">ChatHub</a></li>
+    </ul>
 
-    <!-- Generazione Immagini -->
-    <div class="ai-category">
-        <h2>Generazione Immagini</h2>
-        <div class="ai-list">
-            <a href="https://app.leonardo.ai/" target="_blank">Leonardo AI</a>
-            <a href="https://www.flexclip.com/tools/ai-image-generator/" target="_blank">Flexclip AI Image Generator</a>
-            <a href="https://www.krea.ai/home" target="_blank">Krea AI</a>
-            <a href="https://www.stylar.ai/profile" target="_blank">Stylar AI</a>
-            <a href="https://www.stylar.ai/canvas?id=11397164" target="_blank">Stylar AI Canvas</a>
-            <a href="https://www.imagine.art/dashboard" target="_blank">Imagine AI</a>
-            <a href="https://app.artflow.ai/character-builder?feature=actors" target="_blank">Artflow AI</a>
-            <a href="https://piclumen.com/app/image-generator/explore" target="_blank">Piclumen AI</a>
-            <a href="https://app.pixverse.ai/create" target="_blank">Pixverse AI</a>
-        </div>
-    </div>
+    <h2>🟢 Immagini & Grafica</h2>
+    <ul>
+      <li><a href="https://app.leonardo.ai/" target="_blank">Leonardo AI</a></li>
+      <li><a href="https://www.flexclip.com/tools/ai-image-generator/" target="_blank">Flexclip AI</a></li>
+      <li><a href="https://www.krea.ai/home" target="_blank">Krea AI</a></li>
+      <li><a href="https://www.stylar.ai/profile" target="_blank">Stylar AI Profile</a></li>
+      <li><a href="https://www.stylar.ai/canvas" target="_blank">Stylar Canvas</a></li>
+      <li><a href="https://www.imagine.art/dashboard" target="_blank">Imagine.art</a></li>
+      <li><a href="https://www.basedlabs.ai/" target="_blank">BasedLabs</a></li>
+      <li><a href="https://glif.app/glifs" target="_blank">Glif</a></li>
+      <li><a href="https://www.piclumen.com/" target="_blank">Piclumen</a></li>
+      <li><a href="https://app.artflow.ai/character-builder?feature=actors" target="_blank">Artflow Character Builder</a></li>
+      <li><a href="https://piclumen.com/app/image-generator/explore" target="_blank">Piclumen Generator</a></li>
+      <li><a href="https://app.pixverse.ai/create" target="_blank">Pixverse AI</a></li>
+      <li><a href="https://www.recraft.ai/projects" target="_blank">Recraft AI</a></li>
+      <li><a href="https://dream-machine.lumalabs.ai/board/new" target="_blank">Dream Machine (Luma Labs)</a></li>
+    </ul>
 
-    <!-- Generazione Video -->
-    <div class="ai-category">
-        <h2>Generazione Video</h2>
-        <div class="ai-list">
-            <a href="https://hailuoai.video/" target="_blank">Hailuo AI Video</a>
-            <a href="https://dream-machine.lumalabs.ai/board/new" target="_blank">Dream Machine AI</a>
-        </div>
-    </div>
+    <h2>🟡 Video & Animazioni</h2>
+    <ul>
+      <li><a href="https://hailuoai.video/" target="_blank">Hailuo AI Video</a></li>
+    </ul>
 
-    <!-- Altri strumenti AI -->
-    <div class="ai-category">
-        <h2>Altri strumenti AI</h2>
-        <div class="ai-list">
-            <a href="https://www.thepclegends.com/" target="_blank">PC Legends AI</a>
-            <a href="https://basedlabs.ai/" target="_blank">Based Labs AI</a>
-            <a href="https://glif.app/glifs" target="_blank">Glif AI</a>
-            <a href="https://flux1.org/" target="_blank">Flux AI</a>
-            <a href="https://replicate.com/ostris/flux-dev-lora-trainer/train" target="_blank">Flux Dev Trainer</a>
-            <a href="https://replit.com/@3c1023d78e/WorkshopTracker" target="_blank">Replit AI Workshop Tracker</a>
-            <a href="https://replit.com/@3c1023d78e/TodoTaskManager" target="_blank">Replit AI Task Manager</a>
-            <a href="https://pollo.ai/" target="_blank">Pollo AI</a>
-            <a href="https://www.wan-ai.org/?utm_source=google_ad&utm_medium=cpc&utm_campaign=wan2.1&gad_source=1&gclid=Cj0KCQjwytS-BhCKARIsAMGJyzqRMouz1mrEnzNweo0vD_ytX03N33_8qMm8GnnH-FgEQ81nlL7y3oMaAnBMEALw_wcB" target="_blank">Wan AI</a>
-            <a href="https://www.wan-ai.org/" target="_blank">Wan AI (alternative link)</a>
-        </div>
-    </div>
+    <h2>🟣 Utility & Varie</h2>
+    <ul>
+      <li><a href="https://www.thepclegends.com/" target="_blank">The PC Legends</a></li>
+      <li><a href="https://flux1.org/" target="_blank">Flux 1</a></li>
+      <li><a href="https://replicate.com/ostris/flux-dev-lora-trainer/train" target="_blank">Flux Trainer</a></li>
+      <li><a href="https://pollo.ai/" target="_blank">Pollo AI</a></li>
+      <li><a href="https://www.wan-ai.org/" target="_blank">WAN AI</a></li>
+      <li><a href="https://replit.com/@3c1023d78e/WorkshopTracker" target="_blank">Workshop Tracker</a></li>
+      <li><a href="https://replit.com/@3c1023d78e/TodoTaskManager" target="_blank">To-do Task Manager</a></li>
+    </ul>
+  </div>
 
-    <!-- Pulsante per esportare i dati -->
-    <button id="export-txt">Esporta Dati (TXT)</button>
-    <button id="export-html">Esporta Dati (HTML)</button>
+  <!-- Azioni -->
+  <div class="actions">
+    <select id="exportType">
+      <option value="txt">Esporta in .txt</option>
+      <option value="html">Esporta in .html</option>
+    </select>
+    <button onclick="exportList()">📤 Esporta elenco AI</button>
+  </div>
 
-    <script>
-        // Funzione per esportare in formato .txt
-        document.getElementById('export-txt').addEventListener('click', function() {
-            const data = `
-            Conversazione:
-            - ChatGPT: https://chat.openai.com/
-            - PizzaGPT: https://www.pizzagpt.it/
-            - Perplexity AI: https://www.perplexity.ai/
-            - Poe AI: https://poe.com/chat/yfy74anlpt5cmidps
-            - NotDiamond AI: https://chat.notdiamond.ai/
-            - Mistral Chat: https://chat.mistral.ai/chat
-            - DeepSeek AI: https://chat.deepseek.com/
-            - Monica AI: https://monica.im/home
+  <script>
+    // Motore di ricerca AI
+    document.getElementById('search').addEventListener('input', function () {
+      const filter = this.value.toLowerCase();
+      document.querySelectorAll('#ai-list li').forEach(li => {
+        const text = li.textContent.toLowerCase();
+        li.style.display = text.includes(filter) ? '' : 'none';
+      });
+    });
 
-            Generazione Immagini:
-            - Leonardo AI: https://app.leonardo.ai/
-            - Flexclip AI Image Generator: https://www.flexclip.com/tools/ai-image-generator/
-            - Krea AI: https://www.krea.ai/home
-            - Stylar AI: https://www.stylar.ai/profile
-            - Stylar AI Canvas: https://www.stylar.ai/canvas?id=11397164
-            - Imagine AI: https://www.imagine.art/dashboard
-            - Artflow AI: https://app.artflow.ai/character-builder?feature=actors
-            - Piclumen AI: https://piclumen.com/app/image-generator/explore
-            - Pixverse AI: https://app.pixverse.ai/create
+    // Esporta AI tools
+    function exportList() {
+      const links = Array.from(document.querySelectorAll('#ai-list a'));
+      const format = document.getElementById('exportType').value;
+      let content = '';
 
-            Generazione Video:
-            - Hailuo AI Video: https://hailuoai.video/
-            - Dream Machine AI: https://dream-machine.lumalabs.ai/board/new
+      if (format === 'txt') {
+        content = links.map(link => `- ${link.textContent}: ${link.href}`).join('\n');
+      } else {
+        content = '<ul>' + links.map(link => `<li><a href="${link.href}" target="_blank">${link.textContent}</a></li>`).join('') + '</ul>';
+      }
 
-            Altri strumenti AI:
-            - PC Legends AI: https://www.thepclegends.com/
-            - Based Labs AI: https://basedlabs.ai/
-            - Glif AI: https://glif.app/glifs
-            - Flux AI: https://flux1.org/
-            - Flux Dev Trainer: https://replicate.com/ostris/flux-dev-lora-trainer/train
-            - Replit AI Workshop Tracker: https://replit.com/@3c1023d78e/WorkshopTracker
-            - Replit AI Task Manager: https://replit.com/@3c1023d78e/TodoTaskManager
-            - Pollo AI: https://pollo.ai/
-            - Wan AI: https://www.wan-ai.org/?utm_source=google_ad&utm_medium=cpc&utm_campaign=wan2.1&gad_source=1&gclid=Cj0KCQjwytS-BhCKARIsAMGJyzqRMouz1mrEnzNweo0vD_ytX03N33_8qMm8GnnH-FgEQ81nlL7y3oMa
-            - Wan AI: https://www.wan-ai.org/?utm_source=google_ad&utm_medium=cpc&utm_campaign=wan2.1&gad_source=1&gclid=Cj0KCQjwytS-BhCKARIsAMGJyzqRMouz1mrEnzNweo0vD_ytX03N33_8qMm8GnnH-FgEQ81nlL7y3oMaAnBMEALw_wcB
-            - Wan AI (alternative link): https://www.wan-ai.org/
+      const blob = new Blob([content], { type: format === 'txt' ? 'text/plain' : 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `ai-tools.${format}`;
+      a.click();
+    }
 
-            `;
-            
-            const blob = new Blob([data], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'intelligenze-artificiali.txt';
-            link.click();
-        });
-
-        // Funzione per esportare in formato .html
-        document.getElementById('export-html').addEventListener('click', function() {
-            const data = `
-            <html>
-            <head><title>Elenco AI</title></head>
-            <body>
-            <h1>Elenco delle Intelligenze Artificiali</h1>
-
-            <h2>Conversazione</h2>
-            <ul>
-                <li><a href="https://chat.openai.com/">ChatGPT</a></li>
-                <li><a href="https://www.pizzagpt.it/">PizzaGPT</a></li>
-                <li><a href="https://www.perplexity.ai/">Perplexity AI</a></li>
-                <li><a href="https://poe.com/chat/yfy74anlpt5cmidps">Poe AI</a></li>
-                <li><a href="https://chat.notdiamond.ai/">NotDiamond AI</a></li>
-                <li><a href="https://chat.mistral.ai/chat">Mistral Chat</a></li>
-                <li><a href="https://chat.deepseek.com/">DeepSeek AI</a></li>
-                <li><a href="https://monica.im/home">Monica AI</a></li>
-            </ul>
-
-            <h2>Generazione Immagini</h2>
-            <ul>
-                <li><a href="https://app.leonardo.ai/">Leonardo AI</a></li>
-                <li><a href="https://www.flexclip.com/tools/ai-image-generator/">Flexclip AI Image Generator</a></li>
-                <li><a href="https://www.krea.ai/home">Krea AI</a></li>
-                <li><a href="https://www.stylar.ai/profile">Stylar AI</a></li>
-                <li><a href="https://www.stylar.ai/canvas?id=11397164">Stylar AI Canvas</a></li>
-                <li><a href="https://www.imagine.art/dashboard">Imagine AI</a></li>
-                <li><a href="https://app.artflow.ai/character-builder?feature=actors">Artflow AI</a></li>
-                <li><a href="https://piclumen.com/app/image-generator/explore">Piclumen AI</a></li>
-                <li><a href="https://app.pixverse.ai/create">Pixverse AI</a></li>
-            </ul>
-
-            <h2>Generazione Video</h2>
-            <ul>
-                <li><a href="https://hailuoai.video/">Hailuo AI Video</a></li>
-                <li><a href="https://dream-machine.lumalabs.ai/board/new">Dream Machine AI</a></li>
-            </ul>
-
-            <h2>Altri strumenti AI</h2>
-            <ul>
-                <li><a href="https://www.thepclegends.com/">PC Legends AI</a></li>
-                <li><a href="https://basedlabs.ai/">Based Labs AI</a></li>
-                <li><a href="https://glif.app/glifs">Glif AI</a></li>
-                <li><a href="https://flux1.org/">Flux AI</a></li>
-                <li><a href="https://replicate.com/ostris/flux-dev-lora-trainer/train">Flux Dev Trainer</a></li>
-                <li><a href="https://replit.com/@3c1023d78e/WorkshopTracker">Replit AI Workshop Tracker</a></li>
-                <li><a href="https://replit.com/@3c1023d78e/TodoTaskManager">Replit AI Task Manager</a></li>
-                <li><a href="https://pollo.ai/">Pollo AI</a></li>
-                <li><a href="https://www.wan-ai.org/?utm_source=google_ad&utm_medium=cpc&utm_campaign=wan2.1&gad_source=1&gclid=Cj0KCQjwytS-BhCKARIsAMGJyzqRMouz1mrEnzNweo0vD_ytX03N33_8qMm8GnnH-FgEQ81nlL7y3oMaAnBMEALw_wcB">Wan AI</a></li>
-                <li><a href="https://www.wan-ai.org/">Wan AI (alternative link)</a></li>
-            </ul>
-            </body>
-            </html>
-            `;
-            
-            const blob = new Blob([data], { type: 'text/html' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'intelligenze-artificiali.html';
-            link.click();
-        });
-    </script>
-
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js');
+    }
+  </script>
 </body>
 </html>
