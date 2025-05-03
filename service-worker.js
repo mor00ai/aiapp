@@ -1,26 +1,33 @@
-self.addEventListener('install', function (event) {
+const CACHE_NAME = "ai-catalogo-v2";
+const urlsToCache = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon.png"
+];
+
+self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open('ai-app').then(function (cache) {
-      return cache.addAll([
-        './',
-        './index.html',
-        './manifest.json',
-        './icon.png'
-      ]);
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
     })
   );
 });
 
-self.addEventListener('fetch', function (event) {
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+      );
+    })
+  );
+});
+
+self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request).then(function (response) {
+    caches.match(event.request).then(response => {
       return response || fetch(event.request);
     })
   );
-});
-
-self.addEventListener('message', function (event) {
-  if (event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
 });
