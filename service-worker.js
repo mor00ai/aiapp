@@ -1,49 +1,91 @@
-const CACHE_PREFIX = "ai-tools-cache-";  // Prefisso del nome della cache
-const CACHE_VERSION = new Date().toISOString(); // Genera un nome unico per la cache basato sulla data
-const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION; // Unisce il prefisso con la data corrente per una cache unica
+// service-worker.js
 
-const urlsToCache = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/manifest.json",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+const FILES_TO_CACHE = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icon.png',
+  '/css/style.css',  // Aggiungi il percorso al tuo CSS
+  '/js/app.js'       // Aggiungi il percorso al tuo JS
 ];
 
-// Install: cache the assets when service worker is installed
-self.addEventListener("install", event => {
+// Funzione per calcolare un hash univoco (simulazione)
+async function getCacheVersion() {
+  const cacheString = await Promise.all(FILES_TO_CACHE.map(async (file) => {
+    const response = await fetch(file, { method: 'GET' });
+    const text = await response.text();
+    return text;
+  }));
+  
+  // Combina tutto il contenuto dei file per generare un hash
+  const cacheVersion = cacheString.join('').slice(0, 50); // Prima parte del contenuto come versione (o usa un vero hash)
+  return `ai-tools-cache-${cacheVersion}`;
+}
+
+// Installazione del Service Worker
+self.addEventListener('install', (event) => {
+  console.log('Service Worker: Installazione in corso');
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log("Caching files...");
-      return cache.addAll(urlsToCache);
+    getCacheVersion().then((CACHE_NAME) => {
+      caches.open(CACHE_NAME).then((cache) => {
+        console.log('Service Worker: Cache aperta');
+        return cache.addAll(FILES_TO_CACHE);  // Aggiungi tutte le risorse da memorizzare in cache
+      });
     })
   );
 });
 
-// Activate: automatically clean up old caches when a new version is activated
-self.addEventListener("activate", event => {
+// Attivazione del Service Worker e rimozione della vecchia cache
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker: Attivazione in corso');
+  
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          // Elimina tutte le cache che non corrispondono al nuovo nome
-          if (!cacheName.startsWith(CACHE_PREFIX) || cacheName === CACHE_NAME) {
-            return; // Ignora la cache attuale
-          }
-          console.log(`Deleting old cache: ${cacheName}`);
-          return caches.delete(cacheName); // Elimina la cache vecchia
-        })
-      );
+    getCacheVersion().then((CACHE_NAME) => {
+      const cacheWhitelist = [CACHE_NAME];  // Mantieni solo la cache della versione corrente
+      return caches.keys().then((cacheNames) => {
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            if (!cacheWhitelist.includes(cacheName)) {
+              // Elimina le cache vecchie che non sono più necessarie
+              console.log(`Service Worker: Rimuovo la cache obsoleta ${cacheName}`);
+              return caches.delete(cacheName);
+            }
+          })
+        );
+      });
     })
   );
 });
 
-// Fetch: serve cached resources, or fallback to network if not cached
-self.addEventListener("fetch", event => {
+// Recupero delle risorse (dalla cache o dalla rete)
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request); // Serve dalla cache, fallback alla rete
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        // Restituisce la risorsa dalla cache se esiste
+        return cachedResponse;
+      }
+      // Altrimenti, effettua una richiesta di rete
+      return fetch(event.request).then((response) => {
+        return caches.open(CACHE_NAME).then((cache) => {
+          // Memorizza nella cache la nuova risposta
+          cache.put(event.request, response.clone());
+          return response;
+        });
+      });
     })
+  );
+});
+
+// Notifiche Push (opzionale)
+self.addEventListener('push', (event) => {
+  const options = {
+    body: event.data.text(),
+    icon: '/icon.png',  // Puoi specificare un'icona per la notifica
+    badge: '/icon.png'  // Badge per la notifica
+  };
+
+  event.waitUntil(
+    self.registration.showNotification('Notifica', options)
   );
 });
